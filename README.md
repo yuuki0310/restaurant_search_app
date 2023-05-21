@@ -19,14 +19,14 @@ https://github.com/xxxx
 
 ## 開発環境
 ### 開発環境
-Xcode 11.2.1
+vscode
 
 ### 開発言語
-Swift 5.1
+ruby 3.1.2
+Rails 7.0.4.3
 
 ## 動作対象端末・OS
 ### 動作対象OS
-iOS 13.2.3
 
 ## 開発期間
 7日間
