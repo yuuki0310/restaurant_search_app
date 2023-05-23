@@ -1,6 +1,12 @@
-<h1>Restaurants#index</h1>
+<h1>検索結果</h1>
 
 <% @shops.each do |shop| %>
-  <div><%= shop['name'] %></div>
-  <div><%= shop %></div>
+  <div>
+    <img src="<%= shop['photo']['pc']['m'] %>">
+    <%= shop['name'] %>
+    <%= shop['budget']['name'] %>
+    <%= shop['access'] %>
+    <%= shop['address'] %>
+  </div>
 <% end %>
+<%= paginate @shops %>
