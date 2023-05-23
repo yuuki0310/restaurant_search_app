@@ -9,7 +9,8 @@ class RestaurantsController < ApplicationController
     api_key = ENV['HOTPEPPER_API']
     lat = params[:lat]
     lng = params[:lng]
-    url = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{api_key}&lat=#{lat}&lng=#{lng}&format=json"
+    range = params[:range]
+    url = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{api_key}&lat=#{lat}&lng=#{lng}&range=#{range}&format=json"
     response = HTTParty.get(url)
     data = JSON.parse(response.body)
 

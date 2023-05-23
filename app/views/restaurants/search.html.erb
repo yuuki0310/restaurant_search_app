@@ -1,8 +1,19 @@
 <h1>レストラン検索</h1>
-<%= form_with url: "/restaurants", method: :get do %>
-  <input type="hidden" name="lat" value=""> 
-  <input type="hidden" name="lng" value=""> 
-  <input type="submit">
+<%= form_with url: "/restaurants", method: :get do |f| %>
+  <input type="hidden" name="lat"> 
+  <input type="hidden" name="lng"> 
+  <p>検索範囲</p>
+  <%= f.radio_button :range, 1 %>
+  <%= f.label :range, "300m" %>
+  <%= f.radio_button :range, 2 %>
+  <%= f.label :range, "500m" %>
+  <%= f.radio_button :range, 3, checked: true %>
+  <%= f.label :range, "1000m" %>
+  <%= f.radio_button :range, 4 %>
+  <%= f.label :range, "2000m" %>
+  <%= f.radio_button :range, 5 %>
+  <%= f.label :range, "3000m" %>
+  <%= f.submit "検索" %>
 <% end %>
 <div id="map" style="height: 500px; width: 500px;"></div>
 
