@@ -1,7 +1,24 @@
+  <style>
+
+    
+    </style>
 <h1><%= @shop['name'] %></h1>
-<img src="<%= @shop['photo']['pc']['l'] %>">
-<%= @shop['name'] %>
-<%= @shop['budget']['name'] %>
-<%= @shop['access'] %>
-<%= @shop['address'] %>
+<div class="container">
+  <img src="<%= @shop['photo']['pc']['l'] %>">
+  <div class="shop-details">
+    <label>ジャンル</label>
+    <span><%= @shop['genre']['name'] %></span>
+    <label>予算</label>
+    <span class="budget"><%= @shop['budget']['name'] %></span>
+    <label>住所</label>
+    <span class="address"><%= @shop['address'] %></span>
+    <label>アクセス</label>
+    <span class="access"><%= @shop['access'] %></span>
+    <label>営業時間</label>
+    <span class="open"><%= @shop['open'] %></span>
+    <a href="<%= @shop['urls']['pc'] %>">ホットペッパーのサイトへ</a>
+  </div>
+</div>
+
+
 <%= @shop %>
