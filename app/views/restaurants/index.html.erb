@@ -1,12 +1,69 @@
-<h1>検索結果</h1>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async></script>
 
+<h1>検索結果</h1>
+<div id="map" style="height: 500px; width: 500px;"></div>
 <% @shops.each do |shop| %>
-  <div>
-    <img src="<%= shop['photo']['pc']['m'] %>">
-    <%= shop['name'] %>
-    <%= shop['budget']['name'] %>
-    <%= shop['access'] %>
-    <%= shop['address'] %>
-  </div>
+  <a href="<%=  restaurant_path(shop['id']) %>">
+    <div>
+      <img src="<%= shop['photo']['pc']['m'] %>">
+      <%= shop['name'] %>
+      <%= shop['budget']['name'] %>
+      <%= shop['access'] %>
+      <%= shop['address'] %>
+    </div>
+  </a>
 <% end %>
 <%= paginate @shops %>
+
+<!-- コントローラからビューにパラメーターを渡す -->
+<input type="hidden" id="shop_map_informations_json" value="<%= @shop_map_informations_json%>">
+
+<script>
+  let map;
+  let marker =  [];
+  let infoWindow = [];
+
+  function initMap() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      // 現在位置情報を取得
+      const current_location_lat = position.coords.latitude
+      const current_location_llng = position.coords.longitude
+
+      // 現在位置を中心に表示
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: current_location_lat, lng: current_location_llng },
+        zoom: 15,
+      });
+
+      // 現在位置のマーカーを立てる
+      current_location_marker = new google.maps.Marker({
+        position: { lat: current_location_lat, lng: current_location_llng },
+        map: map
+      });
+    });
+    
+    window.onload = function () {
+      // ビューからお店の位置情報などのパラメータを受け取る
+      const shop_map_informations = $("#shop_map_informations_json").val();
+      const shop_map_informations_json = JSON.parse(shop_map_informations);
+      console.log(shop_map_informations_json);
+
+
+      // 地図に検索結果のピンを立てる
+      shop_map_informations_json.forEach((shop_map_information, i) => {
+        console.log(shop_map_information.lat);
+        const markerLatLng = new google.maps.LatLng({lat: shop_map_information.lat, lng: shop_map_information.lng});
+        marker[i] = new google.maps.Marker({
+          position: markerLatLng,
+          map: map
+        });
+ 
+        // infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
+        //     content: '<div class="sample">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
+        //   });
+    
+        // markerEvent(i); // マーカーにクリックイベントを追加
+      });
+    }
+  }
+</script>
