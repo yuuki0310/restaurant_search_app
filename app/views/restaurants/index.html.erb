@@ -1,5 +1,14 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async></script>
 
+<!-- ピンのデザイン -->
+<style>
+  <% @shop_map_informations.each do |shop_map_information| %>
+    .gm-style img[src="<%= shop_map_information["img"] %>"] {
+      border-radius:50%;
+    }
+  <% end %>
+</style>
+
 <h1>検索結果</h1>
 <div id="map" style="height: 500px; width: 500px;"></div>
 <% @shops.each do |shop| %>
@@ -14,9 +23,6 @@
   </a>
 <% end %>
 <%= paginate @shops %>
-
-<!-- コントローラからビューにパラメーターを渡す -->
-<input type="hidden" id="shop_map_informations_json" value="<%= @shop_map_informations_json%>">
 
 <script>
   let map;
@@ -38,16 +44,12 @@
       // 現在位置のマーカーを立てる
       current_location_marker = new google.maps.Marker({
         position: { lat: current_location_lat, lng: current_location_llng },
-        map: map
+        map: map,
       });
-    });
-    
-    window.onload = function () {
+ 
       // ビューからお店の位置情報などのパラメータを受け取る
-      const shop_map_informations = $("#shop_map_informations_json").val();
-      const shop_map_informations_json = JSON.parse(shop_map_informations);
+      const shop_map_informations_json = JSON.parse(gon.shop_map_informations_json);
       console.log(shop_map_informations_json);
-
 
       // 地図に検索結果のピンを立てる
       shop_map_informations_json.forEach((shop_map_information, i) => {
@@ -55,15 +57,30 @@
         const markerLatLng = new google.maps.LatLng({lat: shop_map_information.lat, lng: shop_map_information.lng});
         marker[i] = new google.maps.Marker({
           position: markerLatLng,
-          map: map
+          map: map,
+          icon: {
+            url: shop_map_information.img,
+            scaledSize: new google.maps.Size(40, 40)
+          },
         });
  
-        // infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-        //     content: '<div class="sample">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
-        //   });
+        // 吹き出しの追加
+        infoWindow[i] = new google.maps.InfoWindow({
+          content: `<a href=/restaurants/${shop_map_information.id}>${shop_map_information.name}</a>`
+        });
     
-        // markerEvent(i); // マーカーにクリックイベントを追加
+        // マーカーにクリックイベントを追加
+        markerEvent(i);
+        function markerEvent(i) {
+          marker[i].addListener('click', function() {
+            infoWindow[i].open(map, marker[i]);
+          });
+        }
       });
-    }
+    });
+  }
+
+  window.onload = function () {
+    initMap();
   }
 </script>
