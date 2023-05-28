@@ -24,6 +24,8 @@ class RestaurantsController < ApplicationController
         "id" => shop["id"],
       }
     end
+    gon.search_lat = params[:lat]
+    gon.search_lng = params[:lng]
     gon.shop_map_informations_json = @shop_map_informations.to_json
   end
 
