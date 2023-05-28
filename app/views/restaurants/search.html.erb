@@ -17,8 +17,9 @@
   </div>
   <%= f.submit "検索" %>
 <% end %>
-<input type="text" id="keyword"><button id="latlng_search">検索実行</button>
-<div id="map" style="height: 500px; width: 100%;"></div>
+<div id="map" class="map-container"></div>
+<input type="text" id="keyword" class="input-field">
+<button id="latlng_search" class="search-button">住所検索</button>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async></script>
 
