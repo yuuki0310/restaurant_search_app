@@ -27,9 +27,8 @@
   let marker
   function initMap() {
     if ("geolocation" in navigator) {
-      // 位置情報を取得
       navigator.geolocation.getCurrentPosition(function (position) {
-        // 位置情報が取得できた場合の処理をここに記述します
+        // 位置情報が取得できた場合の処理
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
   
@@ -41,7 +40,7 @@
         document.querySelector('input[name="lat"]').value = lat;
         document.querySelector('input[name="lng"]').value = lng;
       }, function(error) {
-        // 位置情報が取得できなかった場合の処理をここに記述します
+        // 位置情報が取得できなかった場合の処理
         const lat = 34.7038394;
         const lng = 135.4949209;
         
@@ -54,8 +53,17 @@
         document.querySelector('input[name="lng"]').value = lng;
       });
     } else {
-      console.log("位置情報の取得がサポートされていません");
-      // 位置情報の取得がサポートされていない場合の処理をここに記述します
+      // 位置情報の取得がサポートされていない場合の処理
+      const lat = 34.7038394;
+      const lng = 135.4949209;
+      
+      // グランフロントを中心に表示
+      const latLng = new google.maps.LatLng({lat: lat, lng: lng});
+      setMap(latLng);
+
+      // inputにlatlngをセット
+      document.querySelector('input[name="lat"]').value = lat;
+      document.querySelector('input[name="lng"]').value = lng;
     }
 
     // 検索実行ボタンが押下されたとき
