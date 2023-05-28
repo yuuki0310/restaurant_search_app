@@ -109,13 +109,6 @@ input[type="submit"] {
 }
 
 .pin-link {
-  /* display: inline-block;
-  padding: 8px 16px;
-  background-color: #2196F3;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease; */
   text-decoration: none;
   color: #000;
 }
