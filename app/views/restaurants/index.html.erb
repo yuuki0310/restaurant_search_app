@@ -42,7 +42,7 @@
     // 検索位置を中心にマップを表示
     map = new google.maps.Map(document.getElementById('map'), {
       center: search_latlng,
-      zoom: 15,
+      zoom: 16,
     });
 
     // 検索位置のマーカーを立てる
@@ -57,11 +57,38 @@
     // 地図に検索結果のピンを立てる
     shop_map_informations_json.forEach((shop_map_information, i) => {
       const markerLatLng = new google.maps.LatLng({lat: shop_map_information.lat, lng: shop_map_information.lng});
+
+      // ピン風のデザイン
+      new google.maps.Marker({
+        position: markerLatLng,
+        map: map,
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+          strokeColor: "#FF0000",
+          strokeWeight: 8,
+          scale: 4,
+        },
+      });
+      new google.maps.Marker({
+        position: markerLatLng,
+        map: map,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          strokeColor: "#FF0000",
+          strokeWeight: 8,
+          scale: 20,
+          anchor:  new google.maps.Point(0, 1.5),
+          scaledSize: new google.maps.Size(40, 40)
+        },
+      });
+
+      // 画像のピン
       marker[i] = new google.maps.Marker({
         position: markerLatLng,
         map: map,
         icon: {
           url: shop_map_information.img,
+          anchor:  new google.maps.Point(20, 50),
           scaledSize: new google.maps.Size(40, 40)
         },
       });
