@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
 
   def index
     if params[:lat].empty? || params[:lng].empty?
-      # inputにlatlngが入れられる前に検索をかけられた時
+      # inputにlatlngが入空の時
       redirect_to root_path
     else
       # hotpepper_api呼び出し

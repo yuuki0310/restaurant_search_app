@@ -32,7 +32,6 @@
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
         // 位置情報が取得できた場合の処理
-        // 現在地の地図とマーカをセット
         setCurrentLocationMap(position)
         // 現在地ボタンを押したとき
         currentLocationButton.addEventListener('click', function() {
