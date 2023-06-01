@@ -20,6 +20,7 @@
 <div id="map" class="map-container"></div>
 <input type="text" id="keyword" class="input-field">
 <button id="latlng_search" class="search-button">住所検索</button>
+<button id="current_location" class="current_location">現在地</button>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API'] %>&callback=initMap" async></script>
 
@@ -27,44 +28,29 @@
   let map;
   let marker
   function initMap() {
+    const currentLocationButton = document.getElementById('current_location')
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
         // 位置情報が取得できた場合の処理
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-  
-        // 取得した位置情報を中心に表示
-        const latLng = new google.maps.LatLng({lat: lat, lng: lng});
-        setMap(latLng);
-  
-        // inputにlatlngをセット
-        document.querySelector('input[name="lat"]').value = lat;
-        document.querySelector('input[name="lng"]').value = lng;
+        // 現在地の地図とマーカをセット
+        setCurrentLocationMap(position)
+        // 現在地ボタンを押したとき
+        currentLocationButton.addEventListener('click', function() {
+          setCurrentLocationMap(position)
+        });
       }, function(error) {
         // 位置情報が取得できなかった場合の処理
-        const lat = 34.7038394;
-        const lng = 135.4949209;
-        
-        // グランフロントを中心に表示
-        const latLng = new google.maps.LatLng({lat: lat, lng: lng});
-        setMap(latLng);
-  
-        // inputにlatlngをセット
-        document.querySelector('input[name="lat"]').value = lat;
-        document.querySelector('input[name="lng"]').value = lng;
+        setDefaultLocationMap()
+        currentLocationButton.addEventListener('click', function() {
+          alert("位置情報が取得できませんでした。");
+        });
       });
     } else {
       // 位置情報の取得がサポートされていない場合の処理
-      const lat = 34.7038394;
-      const lng = 135.4949209;
-      
-      // グランフロントを中心に表示
-      const latLng = new google.maps.LatLng({lat: lat, lng: lng});
-      setMap(latLng);
-
-      // inputにlatlngをセット
-      document.querySelector('input[name="lat"]').value = lat;
-      document.querySelector('input[name="lng"]').value = lng;
+      setDefaultLocationMap()
+      currentLocationButton.addEventListener('click', function() {
+        alert("位置情報が取得できませんでした。");
+      });
     }
 
     // 検索実行ボタンが押下されたとき
@@ -87,7 +73,8 @@
               // 地図をセット
               setMap(latlng);
               // inputにlatlngをセット
-              setLatLang(latlng.lat, latlng.lng)
+              $('input[name="lat"]').val(latlng.lat);
+              $('input[name="lng"]').val(latlng.lng);
             }
           }
         } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -98,6 +85,30 @@
         }
       });
     });
+  }
+
+  // 現在地の地図とマーカをセット
+  function setCurrentLocationMap(position) {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    const latLng = new google.maps.LatLng({lat: lat, lng: lng});
+    setMap(latLng);
+
+    // inputにlatlngをセット
+    setLatLang(lat, lng)
+  }
+
+  function setDefaultLocationMap(){
+    const lat = 34.7038394;
+    const lng = 135.4949209;
+    
+    // グランフロント大阪を中心に表示
+    const latLng = new google.maps.LatLng({lat: lat, lng: lng});
+    setMap(latLng);
+
+    // inputにlatlngをセット
+    setLatLang(lat, lng)
   }
   
   // 地図のセットを実施する
@@ -134,7 +145,7 @@
 
   // inputにlatlngをセット
   function setLatLang(lat, lng) {
-    $('input[name="lat"]').val(lat);
-    $('input[name="lng"]').val(lng);
+    document.querySelector('input[name="lat"]').value = lat;
+    document.querySelector('input[name="lng"]').value = lng;
   }
 </script>
