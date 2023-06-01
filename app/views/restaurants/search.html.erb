@@ -114,7 +114,13 @@
     // マーカーのセットを実施する
     marker = new google.maps.Marker({
       position: setplace,
+      draggable: true,
       map: map,
+    });
+
+    //マーカーのドロップ（ドラッグ終了）時のイベント
+    google.maps.event.addListener(marker, 'dragend', function(e) {
+      setLatLang(e.latLng.lat(), e.latLng.lng());
     });
   }
 
