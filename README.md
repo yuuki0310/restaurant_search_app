@@ -14,7 +14,7 @@ restaurant_search_app
 #### デザイン面でこだわったポイント
 地図のピンのデザインをこだわりました。
 
-<img width="58" alt="ピン" src="https://github.com/yuuki0310/restaurant_search_app/assets/79404325/255a08b5-f595-4c0d-89f0-2ba6902875df">
+<img width="58" alt="ピン" src="https://github.com/yuuki0310/restaurant_search_app/assets/79404325/a5277e83-2231-4e54-96a6-0b98febb291b">
 
 ## 開発環境
 ### 開発環境
