@@ -33,18 +33,6 @@ vscode
 ## 開発期間
 6日間
 
-## 実行方法
-.envファイルも公開してますのでGoogle Mapの機能も問題なく使えると思います。
-```
-git clone https://github.com/yuuki0310/restaurant_search_app.git
-
-cd restaurant_search_app
-
-rails s
-
-<!-- ブラウザでlocalhostにアクセス -->
-```
-
 ## アプリケーション機能
 
 ### 機能一覧
