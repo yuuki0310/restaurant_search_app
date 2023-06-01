@@ -207,43 +207,46 @@ input[type="submit"] {
 }
 
 /* restaurants/show */
-.container {
+.shop-container {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 30px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
-.container img {
-  width: 300px;
-  height: auto;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.image-container {
+  flex: 1 0 200px;
   margin-right: 20px;
 }
 
-.shop-details {
-  flex: 1;
+.image-container img {
+  width: 100%;
+  height: auto;
 }
 
-.shop-details h1 {
-  margin: 0;
-  font-size: 24px;
+.details-container {
+  flex: 1 0 300px;
 }
 
-.shop-details label {
-  font-size: 16px;
+.details {
+  margin-top: 20px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.detail-row label {
   font-weight: bold;
+  margin-right: 10px;
 }
 
-.shop-details span {
-  font-size: 16px;
-  display: block;
-  margin-bottom: 5px;
+.link-row {
+  margin-top: 20px;
 }
 
-.shop-details a {
-  color: #007bff;
-  text-decoration: none;
-  font-size: 16px;
+.link-row a {
+  color: blue;
+  text-decoration: underline;
 }
