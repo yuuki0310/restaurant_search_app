@@ -1,7 +1,5 @@
 # 簡易仕様書
 
-### 作者
-折戸優輝
 ### アプリ名
 restaurant_search_app
 
@@ -17,8 +15,6 @@ restaurant_search_app
 <img width="58" alt="ピン" src="https://github.com/yuuki0310/restaurant_search_app/assets/79404325/a5277e83-2231-4e54-96a6-0b98febb291b">
 
 ## 開発環境
-### 開発環境
-vscode
 
 ### 開発言語
 - ruby 3.1.2
@@ -30,8 +26,6 @@ vscode
 - Google Chrome: バージョン113.0
 - Safari: バージョン16.0
 
-## 開発期間
-6日間
 
 ## アプリケーション機能
 
